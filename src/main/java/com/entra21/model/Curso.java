@@ -23,6 +23,11 @@ public class Curso {
         this.categoria = categoria;
     }
 
+    public Curso(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     public Long getId() {
         return id;
     }

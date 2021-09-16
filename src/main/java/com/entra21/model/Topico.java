@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-// entidade da banco
+// entidade - banco
 @Entity
 public class Topico {
 

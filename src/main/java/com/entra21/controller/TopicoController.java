@@ -1,6 +1,7 @@
 package com.entra21.controller;
 
 import com.entra21.controller.dto.AtualizarDadoDTO;
+import com.entra21.controller.dto.DetalheTopicoDTO;
 import com.entra21.controller.dto.TopicoDTO;
 import com.entra21.controller.dto.TopicoFORM;
 import com.entra21.model.*;
@@ -40,7 +41,8 @@ public class TopicoController {
     }
 
     @PostMapping
-    public ResponseEntity<TopicoDTO> gravar(@RequestBody @Valid TopicoFORM topicoFORM, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<TopicoDTO>
+        gravar(@RequestBody @Valid TopicoFORM topicoFORM, UriComponentsBuilder uriComponentsBuilder){
         Topico topico = topicoFORM.converter(cursoRepository);
         topicoRepository.save(topico);
 
@@ -60,6 +62,16 @@ public class TopicoController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity <DetalheTopicoDTO> redirecionamento (@PathVariable Long id) {
+        Optional <Topico> topicoPesquisado = topicoRepository .findById (id) ;
+        if (topicoPesquisado.isPresent()) {
+            return ResponseEntity.ok( new DetalheTopicoDTO (topicoPesquisado.get())) ;
+        }
+        return ResponseEntity. notFound () .build () ;
+    }
+
+
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<TopicoDTO> atualizar (@PathVariable Long id, @RequestBody @Valid AtualizarDadoDTO form){
@@ -71,4 +83,5 @@ public class TopicoController {
 
         return ResponseEntity.notFound().build();
     }
+
 }
